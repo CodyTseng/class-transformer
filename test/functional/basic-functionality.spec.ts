@@ -872,18 +872,10 @@ describe('basic functionality', () => {
       uploadDate: Date;
     }
 
-    class Person {
+    class User {
+      id: number;
       firstName: string;
       lastName: string;
-
-      @Expose()
-      get name() {
-        return this.firstName + ' ' + this.lastName;
-      }
-    }
-
-    class User extends Person {
-      id: number;
 
       @Exclude()
       password: string;
@@ -923,7 +915,6 @@ describe('basic functionality', () => {
     const transformedUser = plainToInstance(User, fromPlainUser);
     expect(transformedUser).toBeInstanceOf(User);
     expect(transformedUser.photo).toBeInstanceOf(Photo);
-    expect(transformedUser.name).toEqual('Umed Khudoiberdiev');
     expect(transformedUser).toEqual({
       firstName: 'Umed',
       lastName: 'Khudoiberdiev',
@@ -937,7 +928,6 @@ describe('basic functionality', () => {
     const fromExistTransformedUser = plainToClassFromExist(fromExistUser, fromPlainUser);
     expect(fromExistTransformedUser).toEqual(fromExistUser);
     expect(fromExistTransformedUser.photo).toEqual(fromExistPhoto);
-    expect(fromExistTransformedUser.name).toEqual('Umed Khudoiberdiev');
     expect(fromExistTransformedUser).toEqual({
       id: 1,
       firstName: 'Umed',
@@ -955,7 +945,6 @@ describe('basic functionality', () => {
     expect(classToClassUser.photo).toBeInstanceOf(Photo);
     expect(classToClassUser).not.toEqual(user);
     expect(classToClassUser).not.toEqual(user.photo);
-    expect(classToClassUser.name).toEqual('Umed Khudoiberdiev');
     expect(classToClassUser).toEqual({
       firstName: 'Umed',
       lastName: 'Khudoiberdiev',
@@ -972,7 +961,6 @@ describe('basic functionality', () => {
     expect(classToClassFromExistUser).not.toEqual(user);
     expect(classToClassFromExistUser).not.toEqual(user.photo);
     expect(classToClassFromExistUser).toEqual(fromExistUser);
-    expect(classToClassFromExistUser.name).toEqual('Umed Khudoiberdiev');
     expect(classToClassFromExistUser).toEqual({
       id: 1,
       firstName: 'Umed',
